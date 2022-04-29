@@ -54,7 +54,7 @@ class CutVertices(p: ProcessConfig)
 
   listenTo(classOf[Msg])
 
-  def run() {
+  def run(): Unit = {
 
     while( new_i.nonEmpty ) {
       /* begin asynchronous round */

@@ -55,7 +55,7 @@ class RicartAgrawala(p: ProcessConfig)
       perm_delayed_i = Set.empty
   }
 
-  private def enterCS() {
+  private def enterCS(): Unit = {
     assert(waiting_from_i.isEmpty)
     cs_state_i = IN
     DELIVER(MutexClient.CanEnter)

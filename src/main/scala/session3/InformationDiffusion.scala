@@ -39,7 +39,7 @@ class InformationDiffusion(p: ProcessConfig, val myValue : Any)
   listenTo(classOf[Gossip])
   listenTo(Terminate.getClass)
 
-  override def run () {
+  override def run(): Unit = {
     println(s"${me.name} :> neighbors = " + neighbors.mkString(" "))
     if (me == initiator) initiate()
     while (true) {

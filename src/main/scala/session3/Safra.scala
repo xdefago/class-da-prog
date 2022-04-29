@@ -38,7 +38,7 @@ class Safra(p: ProcessConfig)
   private var token : Option[Token] = if (me == initiator) Some(Token(White, 0)) else None
 
 
-  private def transmitToken(tok: Option[Token]) {
+  private def transmitToken(tok: Option[Token]): Unit = {
     tok match {
       case Some(Token(col, q)) =>
         val tokenToTransmit =

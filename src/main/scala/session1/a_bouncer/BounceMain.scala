@@ -26,7 +26,7 @@ import neko._
 
 
 object BounceMain
-  extends Main(topology.Clique(10))(
+  extends Main(topology.Clique(10), withTrace = true)(
     ProcessInitializer { p =>
       if (p.pid == PID(0))
         new Player(p)

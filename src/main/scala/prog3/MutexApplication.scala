@@ -30,7 +30,7 @@ class MutexApplication(p: ProcessConfig)
 {
   private val indent = "      " * p.pid.value
 
-  override def run() {
+  override def run(): Unit = {
     var visitCount = 50
 
     println(s"${me.name}: starting")

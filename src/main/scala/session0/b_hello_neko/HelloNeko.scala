@@ -26,12 +26,12 @@ import neko._
 
 class Hello(p: ProcessConfig) extends ActiveProtocol(p, "hello")
 {
-  def run() {
+  def run(): Unit = {
     println(s"Process ${me.name} says: 'Hello Neko World!'")
   }
 }
 
 object HelloNeko
-  extends Main(topology.Clique(2))(
+  extends Main(topology.Clique(20))(
     ProcessInitializer { p => new Hello(p) }
   )

@@ -33,7 +33,7 @@ class Raymond(p: ProcessConfig, initialParent: PID)
   private var parent_i   = initialParent
   private var queue_i    = Seq.empty[PID]
 
-  private def useObject() {
+  private def useObject(): Unit = {
     assert(parent_i == me)
     assert(interested_i)
     DELIVER(MutexClient.CanEnter)

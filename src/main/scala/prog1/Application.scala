@@ -29,7 +29,7 @@ class Application(p: ProcessConfig, root: PID = PID(0), data: BroadcastConvergec
 {
   import BroadcastConvergecast._
 
-  override def preStart() {
+  override def preStart(): Unit = {
     println(s"${me.name} starting...")
     if (me == root) SEND( START(data) )
   }
