@@ -1,0 +1,12 @@
+[package]
+name = "rand-elec"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+indicatif = { version = "0.16" }
+clap = { version = "*", features = [ "derive", "wrap_help" ]}
+rand = "*"
