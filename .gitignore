@@ -28,6 +28,11 @@ target/
 .scala_dependencies
 .worksheet
 
+# for Rust
+Cargo.lock
+target/
+
+
 # Visual Studio Code
 .vscode/
 
