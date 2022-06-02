@@ -11,7 +11,7 @@ The easiest way to install Rust is to use the [rustup](https://rustup.rs) instal
 The simplest way to compile (as needed) and run the program is as follows. In a terminal window, change directory to `rand-elec` (same as this file) and run the following command:
 
 ~~~
-cargo build --release -- help
+cargo run --release -- help
 ~~~
 
 The part after the `--` are the command-line arguments to the Rust program. In this case, this will display the usage information.
@@ -19,13 +19,13 @@ The part after the `--` are the command-line arguments to the Rust program. In t
 For instance, to simulate a signal run of the naive algorithm in a system with 15 processes, type the following command:
 
 ~~~
-cargo build --release -- run naive 15
+cargo run --release -- run naive 15
 ~~~
 
 Alternatively, to find the median of 20 runs of the tournament algorithm in a system with 10000 processes, type the following:
 
 ~~~
-cargo build --release -- stats 20 tournament 10000
+cargo run --release -- stats 20 tournament 10000
 ~~~
 
 ## How to read the code
