@@ -1,4 +1,4 @@
-use clap::*;
+use clap::{Parser,Subcommand,ValueEnum};
 use indicatif::ProgressBar;
 
 use rand_elec::*;
@@ -11,7 +11,7 @@ struct Args {
     command: Commands,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ArgEnum)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
 enum Mode {
     Naive,
     Tournament,
@@ -29,14 +29,14 @@ enum Commands {
     Stats(StatsArgs)
 }
 
-#[derive(Args, Debug)]
+#[derive(clap::Args, Debug)]
 struct StatsArgs {
     /// number of repetitions for statistics.
     #[clap()]
     repetitions: usize,
 
     /// mode of the randomized selection.
-    #[clap(arg_enum)]
+    #[clap(value_enum)]
     mode: Mode,
 
     /// number of anonymous processes in the modelled system.
@@ -48,10 +48,10 @@ struct StatsArgs {
     verbose: bool,
 }
 
-#[derive(Args, Debug)]
+#[derive(clap::Args, Debug)]
 struct RunArgs {
     /// mode of the randomized selection.
-    #[clap(arg_enum)]
+    #[clap(value_enum)]
     mode: Mode,
 
     /// number of anonymous processes in the modelled system.
