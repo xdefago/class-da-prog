@@ -17,18 +17,18 @@ class BankState(object):
     def deposit(self, amount):
         print(f"{self.amount:4} > deposit({amount})")
         try:
-            if amount > 0:
-                self.amount += amount
-                return (True, self.amount)
+            self.amount += amount
+            return (True, self.amount)
         except:
             return (False, self.amount)
         
     def withdraw(self, amount):
         print(f"{self.amount:4} > withdraw({amount})")
         try:
-            if self.amount >= amount:
+            is_enough = self.amount - amount >= 0
+            if is_enough:
                 self.amount -= amount
-                return (True, self.amount)
+            return (is_enough, self.amount)
         except:
             return (False, self.amount)
         
@@ -42,14 +42,9 @@ class BankServer(socketserver.BaseRequestHandler):
     """
     This class works similar to the TCP handler class, except that
     self.request consists of a pair of data and client socket, and since
-    there is no connection the client address must be given explicitly
+    there is no connection, the client address must be given explicitly
     when sending data back via sendto().
     """
-    lookup = {
-        "DEPOSIT":  lambda bank, arg: bank.deposit(int(arg)),
-        "WITHDRAW": lambda bank, arg: bank.withdraw(int(arg)),
-        "BALANCE":  lambda bank, arg: bank.balance()
-    }
 
     bank = BankState(0)
     
@@ -62,18 +57,20 @@ class BankServer(socketserver.BaseRequestHandler):
         resp = (False, "")
         try:
             (command, argument) = data
-            if command in self.lookup:
-                reply = self.lookup[command](BankServer.bank, argument)
-            else:
-                reply = (False, f"Unknown command: {command}")
+            match command:
+                case "DEPOSIT":  resp = self.bank.deposit(int(argument))
+                case "WITHDRAW": resp = self.bank.withdraw(int(argument))
+                case "BALANCE":  resp = self.bank.balance()
+                case _: resp = (False, f"Unknown command: {command}")
+
         except BaseException as e:
-            reply = (False, f"Error processing command: {e}")
+            resp = (False, f"Error processing command: {e}")
 
         #
-        # SEND reply
+        # SEND response
         #
-        print(f" -> {reply}")
-        socket.sendto(pickle.dumps(reply), self.client_address)
+        print(f" -> {resp}")
+        socket.sendto(pickle.dumps(resp), self.client_address)
 
 
 if __name__ == "__main__":
