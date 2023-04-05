@@ -92,7 +92,8 @@ fn main() {
             let generator: Generator = generator_for(mode);
             let hist = single_run(size, generator);
             for (rnd, count) in hist.iter().enumerate() {
-                println!("{rnd:6}: {count:6}");
+                let eureka = if *count == 1 { "** Leader Elected!! **" } else { "" };
+                println!("{rnd:6}: {count:6} {eureka}");
             }
         }
         Commands::Stats(StatsArgs{ repetitions, mode, size, verbose }) => {
