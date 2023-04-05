@@ -6,6 +6,6 @@ scalaVersion := "2.13.10"
 
 resolvers += "titech.c.coord" at "https://xdefago.github.io/ScalaNeko/sbt-repo/"
 
-libraryDependencies += "titech.c.coord" %% "scalaneko" % "0.23.0"
+libraryDependencies += "titech.c.coord" %% "scalaneko" % "0.24.0"
 
 run / fork := true
