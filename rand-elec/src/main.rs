@@ -133,6 +133,7 @@ fn z_value(confidence: f64) -> f64 {
 /// assumes the data is sorted.
 /// returns None if the data set is too small (<3 items).
 fn median_ci(data: &[usize], confidence: f64) -> Option<(usize, usize)> {
+    assert!(confidence > 0. && confidence < 1.);
     let len = data.len();
     if len < 3 {
         return None;
@@ -142,7 +143,7 @@ fn median_ci(data: &[usize], confidence: f64) -> Option<(usize, usize)> {
     let q = 0.5; /* median */
     let n = len as f64;
     let mid_span = z * f64::sqrt(n * q * (1. - q));
-    let lo = 0.max(f64::ceil(n * q - mid_span) as usize - 1);
+    let lo = 1.max(f64::ceil(n * q - mid_span) as usize) - 1;
     let hi = (len - 1).min(f64::ceil(n * q + mid_span) as usize - 1);
     Some((data[lo], data[hi]))
 }
