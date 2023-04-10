@@ -15,16 +15,19 @@ HOST, PORT = "localhost", 9999
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
     
     while True:
+        #
+        # User input
+        #
         request = input('Command > ').split()
         
         if not request or request[0].upper() == "END":
             break
         elif request[0].upper() == "BALANCE":
             request.append("placeholder")
-            
-            #
-            # SEND request
-            #
+        
+        #
+        # SEND request
+        #
         sock.sendto(pickle.dumps(request), (HOST, PORT))
         
         #
