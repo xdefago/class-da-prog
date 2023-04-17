@@ -2,6 +2,8 @@ use clap::{Parser, Subcommand, ValueEnum};
 use indicatif::ProgressBar;
 
 use rand_elec::*;
+use stats_ci::*;
+
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -113,40 +115,17 @@ fn main() {
                 println!("--------------------");
             }
             println!("median: {} rounds (rep: {})", median(&data), repetitions);
-            if let Some((lo, hi)) = median_ci(&mut data, 0.95) {
-                println!("95% ci: [{}, {}]", lo, hi);
+            let confidence = Confidence::new_two_sided(0.95);
+            let quantile = 0.5; // median
+            if let Some(ci) = quantile::ci(confidence, &data, quantile) {
+                println!("{:.0}% ci: {}", confidence.level() * 100., ci);
+            } else {
+                println!("Could not compute the confidence interval");
             }
         }
     }
 }
 
-fn z_value(confidence: f64) -> f64 {
-    assert!(confidence > 0. && confidence < 1.);
-    use statrs::distribution::ContinuousCDF;
-    use statrs::distribution::Normal;
-    let alpha = 1. - confidence;
-    let n = Normal::new(0., 1.).unwrap();
-    n.inverse_cdf(1. - alpha / 2.)
-}
-
-/// compute the confidence interval for the median.
-/// assumes the data is sorted.
-/// returns None if the data set is too small (<3 items).
-fn median_ci(data: &[usize], confidence: f64) -> Option<(usize, usize)> {
-    assert!(confidence > 0. && confidence < 1.);
-    let len = data.len();
-    if len < 3 {
-        return None;
-    }
-
-    let z = z_value(confidence);
-    let q = 0.5; /* median */
-    let n = len as f64;
-    let mid_span = z * f64::sqrt(n * q * (1. - q));
-    let lo = 1.max(f64::ceil(n * q - mid_span) as usize) - 1;
-    let hi = (len - 1).min(f64::ceil(n * q + mid_span) as usize - 1);
-    Some((data[lo], data[hi]))
-}
 
 fn median(data: &[usize]) -> f64 {
     if data.len() % 2 == 1 {
@@ -169,27 +148,5 @@ mod tests {
         assert_eq!(median(&[1]), 1.);
         assert_eq!(median(&[1, 2, 3, 4, 5, 6]), 3.5);
         assert_eq!(median(&[1, 2, 3, 4, 5, 6, 7]), 4.);
-    }
-
-    #[test]
-    fn test_median_ci() {
-        assert_eq!(median_ci(&[1, 2, 3, 3, 4, 5], 0.9), Some((1, 5)));
-        assert_eq!(median_ci(&[1], 0.9), None);
-        assert_eq!(median_ci(&[1, 2, 3, 4, 5, 6], 0.9), Some((1, 6)));
-        assert_eq!(median_ci(&[1, 2, 3, 4, 5, 6, 7], 0.9), Some((2, 6)));
-        assert_eq!(
-            median_ci(
-                &[ 8, 11, 12, 13, 15, 17, 19, 20, 21, 21, 22, 23, 25, 26, 28 ],
-                0.95
-            ),
-            Some((13, 23))
-        );
-    }
-    #[test]
-    fn test_stats() {
-        use statrs::distribution::ContinuousCDF;
-        use statrs::distribution::Normal;
-        let n = Normal::new(0., 1.).unwrap();
-        assert_eq!(n.inverse_cdf(0.975), z_value(0.95));
     }
 }
