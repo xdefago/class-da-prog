@@ -37,14 +37,14 @@ class Application(p: ProcessConfig, initiators: Set[PID] = Set(PID(0)))
     }
     Receive {
       case LearnTopologyClient.Learn(edges) =>
-        println(s"[${me.name}] knows the communication graph.")
+        println(s"[${me.name}] knows the communication graph. {")
         edges
           .toList
           .sorted
           .map(c => (c._1.name, c._2.name))
           .map(c => s"[${me.name}]     $c")
           .foreach(println)
-        println(s"[${me.name}]     END")
+        println(s"[${me.name}] }")
 
       case unknown =>
         println(s"[${me.name}] Unknown message: $unknown")
