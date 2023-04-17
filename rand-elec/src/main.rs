@@ -4,7 +4,6 @@ use indicatif::ProgressBar;
 use rand_elec::*;
 use stats_ci::*;
 
-
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
@@ -125,7 +124,6 @@ fn main() {
         }
     }
 }
-
 
 fn median(data: &[usize]) -> f64 {
     if data.len() % 2 == 1 {
