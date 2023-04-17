@@ -32,6 +32,6 @@ class Hello(p: ProcessConfig) extends ActiveProtocol(p, "hello")
 }
 
 object HelloNeko
-  extends Main(topology.Clique(20))(
+  extends Main(topology.Clique(2))(
     ProcessInitializer { p => new Hello(p) }
   )
