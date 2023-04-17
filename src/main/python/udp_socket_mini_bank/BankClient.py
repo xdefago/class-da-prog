@@ -18,7 +18,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
         #
         # User input
         #
-        request = input('Command > ').split()
+        print('Command [DEPOSIT, WITHDRAW, BALANCE, END]')
+        request = input('> ').split()
         
         if not request or request[0].upper() == "END":
             break
