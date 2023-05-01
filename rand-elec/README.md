@@ -15,17 +15,19 @@ cargo run --release -- help
 ~~~
 
 The part after the `--` are the command-line arguments to the Rust program. In this case, this will display the usage information.
+The `--` are not necessary in this specific case because there are no dashed flags addressed to the rust program.
+The double dashes `--` are omitted in the other examples.
 
 For instance, to simulate a signal run of the naive algorithm in a system with 15 processes, type the following command:
 
 ~~~
-cargo run --release -- run naive 15
+cargo run --release run naive 15
 ~~~
 
 Alternatively, to find the median of 20 runs of the tournament algorithm in a system with 10000 processes, type the following:
 
 ~~~
-cargo run --release -- stats 20 tournament 10000
+cargo run --release stats 20 tournament 10000
 ~~~
 
 ## How to read the code
