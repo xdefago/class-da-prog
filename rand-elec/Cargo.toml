@@ -10,4 +10,4 @@ edition = "2021"
 indicatif = { version = "0.17" }
 clap = { version = "4.2", features = [ "derive", "wrap_help" ]}
 rand = "0.8"
-stats-ci = "0.0.6"
+stats-ci = "0.0.7"
