@@ -114,20 +114,20 @@ fn main() {
                 println!("--------------------");
             }
             println!("median: {} rounds (rep: {})", median(&data), repetitions);
-            let confidence = Confidence::new_two_sided(0.95);
+            let confidence = Confidence::new_two_sided(0.99);
             let quantile = 0.5; // median
             if let Ok(ci) = quantile::ci(confidence, &data, quantile) {
-                println!("{:.0}% ci: {}", confidence.level() * 100., ci);
+                println!("{:.0}% confidence interval: {}", confidence.percent(), ci);
             } else {
                 println!("Could not compute the confidence interval");
             }
 
             println!("--------------------");
-            println!("lower one-sided confidence interval for 90th percentile");
-            let confidence = Confidence::new_lower(0.95);
+            let confidence = Confidence::new_lower(0.99);
             let quantile = 0.9; // 90th percentile
+            println!("lower one-sided confidence interval for {:.0}th percentile", quantile * 100.);
             if let Ok(ci) = quantile::ci(confidence, &data, quantile) {
-                println!("{:.0}% ci: {}", confidence.level() * 100., ci);
+                println!("{} {:.0}% confidence interval: {}", confidence.kind(), confidence.percent(), ci);
             } else {
                 println!("Could not compute the one-sided confidence interval");
             }
