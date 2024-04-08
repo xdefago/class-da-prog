@@ -35,6 +35,7 @@ target/
 
 # Visual Studio Code
 .vscode/
+.metals/
 
 #macOS specific
 .DS_Store
