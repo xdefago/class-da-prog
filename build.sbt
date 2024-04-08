@@ -2,7 +2,7 @@ name := "DistribAlgo"
 
 version := "1.0"
 
-scalaVersion := "2.13.10"
+scalaVersion := "2.13.13"
 
 resolvers += "titech.c.coord" at "https://xdefago.github.io/ScalaNeko/sbt-repo/"
 
