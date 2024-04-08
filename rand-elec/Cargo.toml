@@ -8,6 +8,6 @@ edition = "2021"
 [dependencies]
 
 indicatif = { version = "0.17" }
-clap = { version = "4.2", features = [ "derive", "wrap_help" ]}
+clap = { version = "4.5", features = [ "derive", "wrap_help" ]}
 rand = "0.8"
-stats-ci = "0.0.10"
+stats-ci = "0.1"
