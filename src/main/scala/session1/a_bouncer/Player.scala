@@ -29,7 +29,7 @@ class Player(p: ProcessConfig) extends ActiveProtocol(p, "pingpong")
 {
   listenTo(classOf[Greeting])
 
-  def run() {
+  def run(): Unit = {
     for (p <- neighbors) {
       println(s"send to $p")
       SEND(Greeting(me, p, "PING"))

@@ -31,7 +31,7 @@ class Application (p: ProcessConfig, numIter: Int)
 
   listenTo(classOf[Application.GenericMessage])
 
-  override def run ()
+  override def run (): Unit =
   {
     for (i <- 1 to numIter) {
       println(s"Application send... ${me.name} sequence number is $i")
