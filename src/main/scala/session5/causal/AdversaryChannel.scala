@@ -33,5 +33,5 @@ class AdversaryChannel(p: ProcessConfig) extends ReactiveProtocol(p, "adversary"
       }
     case m => SEND(m)
   }
-  def onReceive = ???
+  def onReceive = PartialFunction.empty[neko.Event,Unit]
 }

@@ -104,7 +104,7 @@ class CutVertices(p: ProcessConfig)
     if (group_a != group_b) {
       val toGroup = math.min(group_a, group_b)
       grpmap =
-        grpmap.mapValues(g => if (g == group_a || g == group_b) toGroup else g).toMap
+        grpmap.view.mapValues(g => if (g == group_a || g == group_b) toGroup else g).toMap
     }
     grpmap
   }

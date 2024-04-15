@@ -26,7 +26,7 @@ import neko._
 
 trait LearnTopologyClient
 { this: Receiving with Listener =>
-  def learnStart() { SEND(LearnTopologyClient.Start) }
+  def learnStart(): Unit = { SEND(LearnTopologyClient.Start) }
   listenTo(classOf[LearnTopologyClient.Learn])
 }
 
