@@ -61,11 +61,11 @@ struct RunArgs {
 
 fn generator_for(mode: Mode) -> Generator {
     match mode {
-        Mode::Naive => naive_gen,
-        Mode::Tournament => tournament_gen,
-        Mode::Biased => biased_tournament_gen,
-        Mode::BiasedSingle => biased_single_gen,
-        Mode::BiasedFixed => biased_fixed_gen,
+        Mode::Naive        => |s, r| naive_gen(s, r),
+        Mode::Tournament   => |s, r| tournament_gen(s, r),
+        Mode::Biased       => |s, r| biased_tournament_gen(s, r),
+        Mode::BiasedSingle => |s, r| biased_single_gen(s, r),
+        Mode::BiasedFixed  => |s, r| biased_fixed_gen(s, r),
     }
 }
 
@@ -77,7 +77,7 @@ fn main() {
     match args.command {
         Commands::Run(RunArgs { mode, size }) => {
             let generator: Generator = generator_for(mode);
-            let hist = single_run(size, generator);
+            let hist = single_run(size, generator, &mut rand::rng());
             for (rnd, count) in hist.iter().enumerate() {
                 let eureka = if *count == 1 {
                     "** Leader Elected!! **"
@@ -95,11 +95,12 @@ fn main() {
         }) => {
             let generator: Generator = generator_for(mode);
             let mut data = Vec::<usize>::with_capacity(repetitions);
+            let mut rng = rand::rng();
 
             let pb = ProgressBar::new(repetitions as u64);
 
             for _ in 0..repetitions {
-                let hist = single_run(size, generator);
+                let hist = single_run(size, generator, &mut rng);
                 pb.inc(1);
                 data.push(hist.len());
             }
