@@ -1,4 +1,4 @@
-use rand::random;
+use rand::prelude::*;
 
 /// global state of the system at a round. A process only holds `true` if it is a candidate
 /// or `false` if it isn't.
