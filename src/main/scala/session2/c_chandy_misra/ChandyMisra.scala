@@ -54,10 +54,10 @@ class ChandyMisra(p: ProcessConfig)
       // TODO: implement operation release_mutex()
   }
 
-  private def enterCS() {
+  private def enterCS(): Unit = {
     assert(R_i.isEmpty)
     cs_state_i = IN
-    perm_state_i = perm_state_i.mapValues(_ => USED).toMap
+    perm_state_i = perm_state_i.view.mapValues(_ => USED).toMap
     DELIVER(MutexClient.CanEnter)
   }
 

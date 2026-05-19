@@ -51,6 +51,6 @@ class Application(p: ProcessConfig, root: PID = PID(0), data: BroadcastConvergec
         }
   }
 
-  override def onSend = PartialFunction.empty
+  override def onSend = PartialFunction.empty[neko.Event,Unit]
 }
 

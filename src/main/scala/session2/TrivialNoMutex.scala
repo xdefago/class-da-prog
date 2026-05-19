@@ -36,7 +36,7 @@ class TrivialNoMutex(p: ProcessConfig)
     case MutexClient.Release =>
   }
 
-  def onReceive = PartialFunction.empty
+  def onReceive = PartialFunction.empty[neko.Event,Unit]
 }
 
 

@@ -69,7 +69,7 @@ object Skeen
     private var pending_i     = Map.empty[(PID,Long), Record]
 
 
-    def onSend = PartialFunction.empty
+    def onSend = PartialFunction.empty[neko.Event,Unit]
 
     listenTo(classOf[Inquiry])
     listenTo(classOf[FinalDate])

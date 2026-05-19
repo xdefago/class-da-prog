@@ -67,7 +67,7 @@ class AnonLeaderTournament(p: ProcessConfig) extends ReactiveProtocol(p, "anonym
       }
   }
 
-  def onSend = PartialFunction.empty
+  def onSend = PartialFunction.empty[neko.Event,Unit]
 
 
   private def displayRound(round: Int, roundData: Seq[Draw]): Unit =
